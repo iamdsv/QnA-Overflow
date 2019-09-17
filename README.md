@@ -1,4 +1,4 @@
-# qnaoverflow
+# QnA Overflow
 Personalized platform for Q&amp;A at IIT Kanpur
 * ***Motivation:***
     * No common personalized platform for Q&A at IIT-K
