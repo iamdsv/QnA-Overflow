@@ -1,0 +1,201 @@
+<input class="input-lg form-control" type="text" [formControl]="typeahead" placeholder="Search before you ask! :)"
+  (input)="suggest()">
+<div class="suggestions" *ngIf="suggestions.length">
+  <div style="cursor: pointer; background-color: white;" *ngFor="let s of suggestions; index as i">
+    <editor class="content" apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" (touchstart)="clicked(s)" (click)="clicked(s)"
+      [(ngModel)]='s' [disabled]="true" [init]="{toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+  </div>
+</div>
+<div id="load" class="text-center"></div>
+<div *ngIf="location == '/questions'">
+  <br />
+  <div *ngFor="let questions of qtags; index as i" class="card">
+    <label class="card-header">Questions under {{interest[i]}}</label>
+    <hr />
+    <div *ngFor="let question of questions | async | orderBy:'timestamp':true ; index as j">
+      <div *ngIf="question.uid != userID">
+        <div class="card" style="padding:20px">
+          <div class="card-header" style="background-color: #035f88">
+            <strong>
+              <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.title' [disabled]="true"
+                [init]="{toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+            </strong>
+          </div>
+          <div class="card-body" style="border: 1px solid #035f88">
+            <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.question'
+              [disabled]="true" [init]="{plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  }, toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+          </div>
+          <div class="card-footer">
+            <span class="text-left small"><a [routerLink]="" style="color:#035f88" [queryParams]="{ q: question.key, index: i, tag: interest[i], qt: question.title, qques: question.question, ask: question.name, time: question.timestamp}"
+                (click)="openModal(i, question.key, question.title, question.question, i, question.name, question.timestamp)">{{question.totalAns}}
+                Answer(s)</a></span>
+            <span class="float-right text-right small">Asked by {{question.name}}, {{question.timestamp | timeAgo}}</span>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+    <div class="text-center card-footer">No more questions found in this catagory!</div>
+  </div>
+</div>
+<div *ngIf="location == '/myquestions'">
+  <br />
+  <div *ngFor="let questions of qtags; index as i" class="card">
+    <label class="card-header">Questions under {{interest[i]}}</label>
+    <hr />
+    <div *ngFor="let question of questions | async | orderBy:'timestamp':true ; index as j">
+      <div *ngIf="question.uid == userID">
+        <div class="card" style="padding:20px">
+          <div class="card-header" style="background-color: #035f88">
+            <strong>
+              <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.title' [disabled]="true"
+                [init]="{toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+            </strong>
+          </div>
+          <div class="card-body" style="border: 1px solid #035f88">
+            <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.question'
+              [disabled]="true" [init]="{plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  }, toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+          </div>
+          <div class="card-footer">
+            <span class="text-left small"><a [routerLink]="" style="color:#035f88" [queryParams]="{ q: question.key, index: i, tag: interest[i], qt: question.title, qques: question.question, ask: question.name, time: question.timestamp}"
+                (click)="openModal(i, question.key, question.title, question.question, i, question.name, question.timestamp)">{{question.totalAns}}
+                Answers</a>&nbsp;&nbsp;<button type="button" class="delete" style="text-decoration:none; color:#035f88"
+                *ngIf="question.uid == userID" (click)="deleteThisQuestion(interest[i], question.key)">Delete</button></span>
+            <span class="float-right text-right small">Asked by You, {{question.timestamp | timeAgo}}</span>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+    <div class="text-center card-footer">No more questions found in this catagory!</div>
+  </div>
+</div>
+<div *ngIf="location == '/unanswered'">
+  <br />
+  <div *ngFor="let questions of qtags; index as i" class="card">
+    <label class="card-header">Questions under {{interest[i]}}</label>
+    <hr />
+    <div *ngFor="let question of questions | async | orderBy:'timestamp':true; index as j">
+      <div *ngIf="(question.uid != userID) && (question.totalAns == 0)">
+        <div class="card" style="padding:20px">
+          <div class="card-header" style="background-color: #035f88">
+            <strong>
+              <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.title' [disabled]="true"
+                [init]="{toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+            </strong>
+          </div>
+          <div class="card-body" style="border: 1px solid #035f88">
+            <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.question'
+              [disabled]="true" [init]="{plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  }, toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+          </div>
+          <div class="card-footer">
+            <span class="text-left small"><a [routerLink]="" style="color:#035f88" [queryParams]="{ q: question.key, index: i, tag: interest[i], qt: question.title, qques: question.question, ask: question.name, time: question.timestamp}"
+                (click)="openModal(i, question.key, question.title, question.question, i, question.name, question.timestamp)">{{question.totalAns}}
+                Answers</a>&nbsp;&nbsp;<button type="button" class="delete" style="text-decoration:none; color:#035f88"
+                *ngIf="question.uid == userID" (click)="deleteThisQuestion(interest[i], question.key)">Delete</button></span>
+            <span class="float-right text-right small">Asked by {{question.name}}, {{question.timestamp | timeAgo}}</span>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+    <div class="text-center card-footer">No more questions found in this catagory!</div>
+  </div>
+</div>
+<div *ngIf="location == '/myanswers'">
+  <br />
+  <div *ngFor="let questions of qtags; index as i" class="card">
+    <label class="card-header">Questions under {{interest[i]}}</label>
+    <hr />
+    <div *ngFor="let question of questions | async | orderBy:'timestamp':true; index as j">
+      <div *ngFor="let answers of question.answers | keyvalue">
+        <div *ngIf="answers.value.uid == userID && once">
+          {{doneOnce()}}
+          <div class="card" style="padding:20px">
+            <div class="card-header" style="background-color: #035f88">
+              <strong>
+                <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.title'
+                  [disabled]="true" [init]="{toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+              </strong>
+            </div>
+            <div class="card-body" style="border: 1px solid #035f88">
+              <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='question.question'
+                [disabled]="true" [init]="{plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  }, toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+            </div>
+            <div class="card-footer">
+              <span class="text-left small"><a [routerLink]="" style="color:#035f88" [queryParams]="{ q: question.key, index: i, tag: interest[i], qt: question.title, qques: question.question, ask: question.name, time: question.timestamp}"
+                  (click)="openModal(i, question.key, question.title, question.question, i, question.name, question.timestamp)">{{question.totalAns}}
+                  Answers</a>&nbsp;&nbsp;<button type="button" class="delete" style="text-decoration:none; color:#035f88"
+                  *ngIf="question.uid == userID" (click)="deleteThisQuestion(interest[i], question.key)">Delete</button></span>
+              <span class="float-right text-right small">Asked by {{question.name}}, {{question.timestamp | timeAgo}}</span>
+            </div>
+          </div>
+          <br />
+        </div>
+      </div>
+      {{resetDone()}}
+    </div>
+    <div class="text-center card-footer">No more questions answered by you were found in this catagory!</div>
+  </div>
+</div>
+
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content card">
+      <div class="modal-header card-header">
+        <div style="width: 100%">
+          <strong>
+            <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='writeATitle' [disabled]="true"
+              [init]="{toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+          </strong>
+          <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='writeAQ' [disabled]="true"
+            [init]="{plugins : 'codesample link image', toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+          <span style="padding:7px; background-color: white; color: #023c56">{{currTag}}</span>
+          <span class="float-right text-right small">Asked by <span *ngIf="writeAABy != name">{{writeAABy}}</span><span
+              *ngIf="writeAABy == name">You</span>, {{(writeATime-0) | timeAgo}}</span>
+        </div>
+        <button type="button" class="close float-right" style="color: white" aria-label="Close" (click)="onCloseHandled()"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body" style="overflow: auto !important">
+        <div class="card-body">
+          <strong>Write an answer:</strong>
+          <editor id="answer" apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" id="answer" [(ngModel)]='answer'
+            [init]="{menubar:false, plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  },toolbar: ['styleselect | bold italic | alignleft' 
+        + 'aligncenter alignright alignjustify | '
+        + 'bullist numlist outdent indent | link image | codesample formula ']} "></editor>
+          <button class="button float-right" (click)="sendAnswer()">Send Answer!</button>
+          <br />
+          <br />
+        </div>
+        <div *ngFor="let answer of answers | async | orderBy:'votes':true; index as i" class="card-footer">
+          <div style="width:10%">
+            <button id="{{'vote' + i}}" class="vote" *ngIf="voteStatus(answer.answer) == 0 || voteStatus(answer.answer) == -1"
+              (click)="upvoteEvent(answer.answer, answer.key, i)" #vote> </button>
+            <button id="{{'vote' + i}}" class="vote on" *ngIf="voteStatus(answer.answer) == 1" #vote>
+            </button>
+            <br />
+            <span style="padding-left: 17px; float: none !important">{{answer.votes}}</span>
+            <br />
+            <button id="{{'downvote' + i}}" class="downvote" *ngIf="voteStatus(answer.answer) == 0 || voteStatus(answer.answer) == 1"
+              (click)="downvoteEvent(answer.answer, answer.key, i)" #downvote> </button>
+            <button id="{{'downvote' + i}}" class="downvote off" *ngIf="voteStatus(answer.answer) == -1" #downvote>
+            </button>
+          </div>
+          <div style="margin-top: -85px; margin-bottom: 12%">
+            <editor id="'ans'+{{i}}" style="padding-left: 60px" apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d"
+              [(ngModel)]='answer.answer' [disabled]="true" [init]="{plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  }, toolbar: false, menubar:false, statusbar: false, inline: true}"></editor>
+            <span class="float-right bottom text-right small"><button type="button" class="delete" style="text-decoration:none; color:#035f88"
+                *ngIf="answer.uid == userID" (click)="deleteThisAnswer(answer.key)">Delete</button>&nbsp;Answered by
+              <span *ngIf="answer.uid != userID">{{answer.name}}</span><span *ngIf="answer.uid == userID">You</span>,
+              {{answer.timestamp | timeAgo}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+      </div> -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->

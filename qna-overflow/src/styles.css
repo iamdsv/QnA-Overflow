@@ -1,0 +1,169 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ngx-toastr/toastr.css";
+
+li{
+    padding-right: 10px; 
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.backdrop{ 
+    background-color:rgba(0,0,0,0.6);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+ }
+
+ .vote {
+    display: inline-block;
+    overflow: hidden;
+    width: 40px;
+    height: 25px;
+    cursor: pointer;
+    background: url('./vote.png');
+    background-position: 0 -25px;
+    padding: 0;
+    border: none;
+} 
+.on {
+    background-position: 0 2px;
+  }
+
+.downvote {
+    display: inline-block;
+    overflow: hidden;
+    width: 40px;
+    height: 25px;
+    cursor: pointer;
+    background: url('./vote.png');
+    background-position: 0 -25px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    padding: 0;
+    border: none;
+}
+.downvote.off {
+    background-position: 0 2px;
+  }
+  
+.modal-body {
+    max-height: 700px;
+    overflow-y: scroll;
+}
+.delete{
+    background:none!important;
+     border:none; 
+     padding:0!important;
+     color: blue;
+     text-decoration: underline;
+     cursor:pointer;
+}
+
+.suggestions{
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+    z-index:99;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: #023c56;
+    box-shadow: 5px 8px #ced4da;
+}
+
+.content{
+    padding-top: 10px;
+    padding-left: 10px; 
+    border-bottom: 1px dotted #ced4da;
+}
+
+.header{
+    background-color: #023c56;
+    color: white !important;
+}
+
+.text{
+    color: white !important;
+    text-decoration: none;
+}
+
+.active{
+    text-decoration: underline;
+}
+
+.button {
+    border-radius: 4px;
+    background-color: #f4511e !important;
+    border: none;
+    color: #FFFFFF;
+    font-weight: 400;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  html, .bg {
+    background: url("./hexagon.png");
+    background-repeat: repeat;
+    background-size: 6px 6px;
+    color: #023c56;
+}
+
+.active{
+    text-decoration: none;
+    border-top: #FFFFFF solid 1px;
+    border-bottom: #FFFFFF solid 1px;
+}
+a:hover{
+    text-decoration: none;
+}
+.card-header{
+    background-color: #023c56;
+    color: white;
+}
+.headbg{
+    width:100%;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #023c56;
+}
+
+.modal{
+    border-color: #023c56 !important;
+    overflow-y: scroll;
+}

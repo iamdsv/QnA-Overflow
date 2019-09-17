@@ -1,0 +1,12 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { TextInputAutocompleteMenuComponent, TextInputAutocompleteModule } from './index';
+export { TextInputAutocompleteContainerComponent as ɵb } from './text-input-autocomplete-container.component';
+export { TextInputAutocompleteDirective as ɵa } from './text-input-autocomplete.directive';
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYW5ndWxhci10ZXh0LWlucHV0LWF1dG9jb21wbGV0ZS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2FuZ3VsYXItdGV4dC1pbnB1dC1hdXRvY29tcGxldGUvIiwic291cmNlcyI6WyJhbmd1bGFyLXRleHQtaW5wdXQtYXV0b2NvbXBsZXRlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSxnRkFBYyxTQUFTLENBQUM7QUFFeEIsT0FBTyxFQUFDLHVDQUF1QyxJQUFJLEVBQUUsRUFBQyxNQUFNLCtDQUErQyxDQUFDO0FBQzVHLE9BQU8sRUFBQyw4QkFBOEIsSUFBSSxFQUFFLEVBQUMsTUFBTSxxQ0FBcUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogR2VuZXJhdGVkIGJ1bmRsZSBpbmRleC4gRG8gbm90IGVkaXQuXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9pbmRleCc7XG5cbmV4cG9ydCB7VGV4dElucHV0QXV0b2NvbXBsZXRlQ29udGFpbmVyQ29tcG9uZW50IGFzIMm1Yn0gZnJvbSAnLi90ZXh0LWlucHV0LWF1dG9jb21wbGV0ZS1jb250YWluZXIuY29tcG9uZW50JztcbmV4cG9ydCB7VGV4dElucHV0QXV0b2NvbXBsZXRlRGlyZWN0aXZlIGFzIMm1YX0gZnJvbSAnLi90ZXh0LWlucHV0LWF1dG9jb21wbGV0ZS5kaXJlY3RpdmUnOyJdfQ==

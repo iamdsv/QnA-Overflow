@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default header">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand text" routerLink="home"><strong>QnA Overflow</strong></a>
+    </div>
+    <ul class="nav navbar">
+      <li [routerLinkActive]="['active']">
+        <a class="text" routerLink="home">
+          Home
+        </a>
+      </li>
+      <span *ngIf="emailVerified && init">
+        <li [routerLinkActive]="['active']">
+          <a class="text" *ngIf="user | async" routerLink="index">
+            Ask a question
+          </a>
+        </li>
+      </span>
+      <span *ngIf="emailVerified && init">
+        <li id="myfeed" [routerLinkActive]="['active']">
+          <a class="text" *ngIf="user | async" routerLink="questions">
+            My Feed
+          </a>
+        </li>
+      </span>
+      <span *ngIf="emailVerified && init">
+        <li id="myques" [routerLinkActive]="['active']">
+          <a class="text" *ngIf="user | async" routerLink="myquestions">
+            My Questions
+          </a>
+        </li>
+      </span>
+      <span *ngIf="emailVerified && init">
+        <li id="unans" [routerLinkActive]="['active']">
+          <a class="text" *ngIf="user | async" routerLink="unanswered">
+            Unanswered
+          </a>
+        </li>
+      </span>
+      <span *ngIf="emailVerified && init">
+        <li id="myans" [routerLinkActive]="['active']">
+          <a class="text" *ngIf="user | async" routerLink="myanswers">
+            Answered by Me
+          </a>
+        </li>
+      </span>
+    </ul>
+    <button *ngIf="user | async" (click)="logout()" class="button float-right"><span>Logout</span></button>
+  </div>
+</nav>
+<br />
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,8 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+export { TextInputAutocompleteModule } from './text-input-autocomplete.module';
+export { TextInputAutocompleteMenuComponent } from './text-input-autocomplete-menu.component';
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9hbmd1bGFyLXRleHQtaW5wdXQtYXV0b2NvbXBsZXRlLyIsInNvdXJjZXMiOlsiaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLDRDQUFjLGtDQUFrQyxDQUFDO0FBQ2pELE9BQU8sRUFDTCxrQ0FBa0MsRUFDbkMsTUFBTSwwQ0FBMEMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCAqIGZyb20gJy4vdGV4dC1pbnB1dC1hdXRvY29tcGxldGUubW9kdWxlJztcbmV4cG9ydCB7XG4gIFRleHRJbnB1dEF1dG9jb21wbGV0ZU1lbnVDb21wb25lbnRcbn0gZnJvbSAnLi90ZXh0LWlucHV0LWF1dG9jb21wbGV0ZS1tZW51LmNvbXBvbmVudCc7XG4iXX0=

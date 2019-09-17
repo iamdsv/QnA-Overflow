@@ -1,0 +1,30 @@
+<div *ngIf="emailVerified && init" class="card">
+  <div class="card-header">
+    Hey {{name}}, go ahead ask something
+  </div>
+  <br />
+  <div class="card-body">
+    <div id="title">
+      <label><strong>Title:</strong></label>
+      <br />
+      <editor apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" [(ngModel)]='title' [init]="{min_height: '40' ,toolbar: false, menubar:false, statusbar: false}"></editor>
+      <br />
+    </div>
+    <div id="question">
+      <label><strong>Ask a question:</strong></label>
+      <editor id="question" apiKey="ezqlg9vi9fmxhzt2qed6tdxpwzu49w0riw24pzvmjotzj87d" id="question" [(ngModel)]='content'
+        [init]="{menubar:false, plugins : 'codesample link image', external_plugins: { formula: 'plugins/formula/plugin.js'  },toolbar: ['styleselect | bold italic | alignleft' 
+  + 'aligncenter alignright alignjustify | '
+  + 'bullist numlist outdent indent | link image | codesample formula ']} "></editor>
+    </div>
+    <div>
+      <br />
+      <label><strong>Tag (Only one, the most relevant)</strong></label>
+      <rl-tag-input [(ngModel)]="qtag" placeholder="C or C++ or Java or Android ... "></rl-tag-input>
+      <div>Current Available Tags: <span *ngFor="let tags of availableTags | async">| {{tags.key}} </span>|</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="button float-right" (click)="getContent()">Ask this question!</button>
+  </div>
+</div>

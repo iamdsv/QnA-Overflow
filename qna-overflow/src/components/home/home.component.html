@@ -1,0 +1,136 @@
+<div class="panel panel-primary card" ng-show="windowLoaded == true">
+  <span class="card-header">Welcome to QnA Overflow!</span>
+  <div *ngIf="!(user | async)" class="panel-body card-body">
+    <form [formGroup]="angForm" novalidate>
+      <div class="form-group">
+        <label class="col-md-4"><strong>E-mail:</strong></label>
+        <input type="email" class="form-control" placeholder="E-mail for login or signup" formControlName="email"
+          #email />
+      </div>
+      <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="angForm.controls['email'].errors.required">
+          E-mail is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4"><strong>Password:</strong></label>
+        <input type="password" class="form-control" placeholder="Password for login or signup (Minimum 8 charachters)"
+          formControlName="password" #password />
+      </div>
+      <div *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)"
+        class="alert alert-danger">
+        <div *ngIf="angForm.controls['password'].errors.required">
+          Password is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <button *ngIf="!(user | async)" (click)="createUser(email.value, password.value)" [disabled]="angForm.pristine || angForm.invalid"
+          class="button">Signup</button>
+        &nbsp;
+        <button *ngIf="!(user | async)" (click)="login(email.value, password.value)" [disabled]="angForm.pristine || angForm.invalid"
+          class="button">Login</button>
+      </div>
+    </form>
+  </div>
+  <div [hidden]="!showHide">
+    <div *ngIf="user | async">
+      <p *ngIf="!emailVerified" class="headbg">
+        Hi {{email}}, your E-mail is not verified.
+        <br>
+        Kindly verify it to proceed further. To re-send verification mail: <button (click)="verifyUser()" class="button">Re-send
+          Verification</button>
+        <br>Refresh this page once done!
+      </p>
+      <div *ngIf="emailVerified && !init" class="panel panel-primary card" #gettingStarted>
+        <div class="card-header">Let's get started</div><br />
+        <div class="panel-body card-body" style="padding: 20px">
+          <form [formGroup]="angFormStarted" novalidate>
+            <div class="form-group">
+              <label><strong>Full Name:</strong></label>
+              <input type="text" class="form-control" formControlName="name" placeholder="Full Name" #name />
+            </div>
+            <div *ngIf="angFormStarted.controls['name'].invalid && (angFormStarted.controls['name'].dirty || angFormStarted.controls['name'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="angFormStarted.controls['name'].errors.required">
+                Full name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label><strong>Branch:</strong></label>
+              <select class="form-control" formControlName="branch" id="sel1" #branch>
+                <option>CSE</option>
+                <option>EE</option>
+                <option>ME</option>
+                <option>CE</option>
+              </select>
+            </div>
+            <div *ngIf="angFormStarted.controls['branch'].invalid && (angFormStarted.controls['branch'].dirty || angFormStarted.controls['branch'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="angFormStarted.controls['branch'].errors.required">
+                Branch is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label><strong>Interested In:</strong></label>
+              <rl-tag-input [(ngModel)]="tags" class="form-control text-capitalize" style="text-indent: 10px;" formControlName="items"
+                placeholder="C, C++, Java ..." #items>
+              </rl-tag-input>
+              <div>Current Available Tags: <span *ngFor="let tags of availableTags | async">| {{tags.key}} </span>|</div>
+            </div>
+            <div *ngIf="angFormStarted.controls['items'].invalid && (angFormStarted.controls['items'].dirty || angFormStarted.controls['items'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="angFormStarted.controls['items'].errors.required">
+                At least one interest is required.
+              </div>
+            </div>
+            <div class="form-group float-right">
+              <button (click)="submitData(name.value, branch.value)" [disabled]="angFormStarted.pristine || angFormStarted.invalid"
+                class="button">Submit
+                Data</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="user | async">
+    <div *ngIf="emailVerified && init" class="panel-body card-body">
+      <strong>Your personal details:</strong>
+      <hr />
+      <div id="nonEditable">
+        <label><strong>E-mail:</strong></label>&nbsp;
+        <span>{{email}}</span><br />
+        <label><strong>Name:</strong></label>&nbsp;
+        <span>{{name}}</span><br />
+        <label><strong>Branch:</strong></label>&nbsp;
+        <span>{{branch}}</span>
+      </div>
+      <div id="editable">
+        <label><strong>Add/Remove Interests:</strong></label>
+        <rl-tag-input [(ngModel)]="interest" placeholder="Press enter to register a tag" #items>
+        </rl-tag-input>
+        <div>Current Available Tags: <span *ngFor="let tags of availableTags | async">| {{tags.key}} </span>|</div>
+        <br />
+        <button (click)="updateProfile()" class="button">Update Profile</button>
+      </div>
+    </div>
+  </div>
+  <br />
+  <form [formGroup]="angFormReset" class="card-footer" novalidate>
+    <div class="form-group">
+      <span><strong>Reset your password:</strong></span>
+      <hr />
+      <label class="col-md-4"><strong>E-mail:</strong></label>
+      <input type="email" class="form-control" placeholder="E-mail to reset password" formControlName="remail" #remail />
+    </div>
+    <div *ngIf="angFormReset.controls['remail'].invalid && (angFormReset.controls['remail'].dirty || angFormReset.controls['remail'].touched)"
+      class="alert alert-danger">
+      <div *ngIf="angFormReset.controls['remail'].errors.required">
+        E-mail is required.
+      </div>
+    </div>
+    <button (click)="reset(remail.value)" [disabled]="angFormReset.pristine || angFormReset.invalid" class="button">Reset
+      Password</button>
+  </form>

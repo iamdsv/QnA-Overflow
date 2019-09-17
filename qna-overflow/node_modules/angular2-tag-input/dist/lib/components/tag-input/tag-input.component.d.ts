@@ -1,0 +1,63 @@
+import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormBuilder, FormGroup } from '@angular/forms';
+export interface AutoCompleteItem {
+    [index: string]: any;
+}
+export declare class TagInputComponent implements ControlValueAccessor, OnDestroy, OnInit {
+    private fb;
+    private elementRef;
+    isFocused: any;
+    addOnBlur: boolean;
+    addOnComma: boolean;
+    addOnEnter: boolean;
+    addOnPaste: boolean;
+    addOnSpace: boolean;
+    allowDuplicates: boolean;
+    allowedTagsPattern: RegExp;
+    autocomplete: boolean;
+    autocompleteItems: string[];
+    autocompleteMustMatch: boolean;
+    autocompleteSelectFirstItem: boolean;
+    pasteSplitPattern: string;
+    placeholder: string;
+    addTag: EventEmitter<string>;
+    removeTag: EventEmitter<string>;
+    tagInputElement: ElementRef;
+    private canShowAutoComplete;
+    private tagInputSubscription;
+    private splitRegExp;
+    private readonly tagInputField;
+    private readonly inputValue;
+    tagInputForm: FormGroup;
+    autocompleteResults: string[];
+    tagsList: string[];
+    selectedTag: number;
+    onDocumentClick(event: MouseEvent, target: HTMLElement): void;
+    constructor(fb: FormBuilder, elementRef: ElementRef);
+    ngOnInit(): void;
+    onKeydown(event: KeyboardEvent): void;
+    onInputBlurred(event: any): void;
+    onInputFocused(): void;
+    onInputPaste(event: any): void;
+    onAutocompleteSelect(selectedItem: any): void;
+    onAutocompleteEnter(): void;
+    showAutocomplete(): boolean;
+    private _splitString(tagString);
+    private _isTagValid(tagString);
+    private _isTagUnique(tagString);
+    private _isTagAutocompleteItem(tagString);
+    private _emitTagAdded(addedTags);
+    private _emitTagRemoved(removedTag);
+    private _addTags(tags);
+    private _removeTag(tagIndexToRemove);
+    private _handleBackspace();
+    private _resetSelected();
+    private _resetInput();
+    /** Implemented as part of ControlValueAccessor. */
+    onChange: (value: any) => any;
+    onTouched: () => any;
+    writeValue(value: any): void;
+    registerOnChange(fn: any): void;
+    registerOnTouched(fn: any): void;
+    ngOnDestroy(): void;
+}
